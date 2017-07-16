@@ -22,28 +22,30 @@ module.exports = function(cfg) {
       library: 'ngFormlyMaterial'
     },
     resolve: {
-      extensions: ['', '.js', '.html']
+      extensions: ['.js', '.html']
     },
     externals: {
-      angular: 'angular'
-    },
-    babel: {
-      presets: ['es2015']
+      'angular': 'angular'
     },
     module: {
-      loaders: [{
+      rules: [{
         test: /\.js$/,
         include: [
           /tests/,
           /src/
         ],
         exclude: /node_modules/,
-        loader: 'babel'
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            presets: ['es2015']
+          }
+        }]
       }, {
         test: /\.html$/,
         exclude: /node_modules/,
         include: [/src/],
-        loader: 'html'
+        loader: 'html-loader'
       }]
     },
     plugins: [
